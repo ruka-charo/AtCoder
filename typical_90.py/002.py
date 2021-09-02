@@ -50,20 +50,28 @@ n = int(input())
 
 # bit全探索
 bit_list = list(product([0, 1], repeat=n))
-
+ans_list = []
 
 def judge(bit_list):
-    counts = 0
     for num_list in bit_list:
+        counts = 0
+        flag = True
         for num in num_list:
             if num == 0:
-                counts -= 1
-                if counts < 0:
-                    print(False)
-            else:
                 counts += 1
+            else:
+                counts -= 1
 
+            if counts < 0:
+                flag = False
+                break
 
+        if flag == True and counts == 0:
+            ans_list.append(num_list)
 
-
+# 答えのbit列を算出
 judge(bit_list)
+
+for ans in ans_list:
+    ans_rep = ['(' if num==0 else ')' for num in list(ans)]
+    print(''.join(ans_rep))
