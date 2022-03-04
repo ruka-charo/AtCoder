@@ -1,12 +1,11 @@
 #include <iostream>
-#include <vector>
-#include <cstring>
+#include <string>
 using namespace std;
 
 
 // 回文の判定
-bool judge(char str[]){
-    int N = strlen(str);
+bool judge(string str){
+    int N = str.length();
 
     bool judge = true;
     for (int i = 0; i <= N; i++){
@@ -24,8 +23,7 @@ bool judge(char str[]){
 
 int main(){
     // 標準入力
-    char drop_word[1000001];
-    char word[1000001];
+    string word;
     cin >> word;
 
     if (judge(word))
@@ -50,24 +48,17 @@ int main(){
                 count_back = 0;
         }
 
-        // 差分の数だけ末尾からaを削る
-        bool ans = true;
-        int word_count = strlen(word);
-        int diff = count_back - count_front;
-        if (diff >= 0){
-            for (int i = 0; i < word_count - diff; i++){
-                if (word[i] == word[word_count-diff-1-i])
-                    continue;
-                else
-                    ans = false;
-                    break;
-            }
 
-            if (ans)
+        // 差分の数だけ末尾からaを削る
+        int diff = count_back - count_front;
+        if (diff > 0){
+            word.erase(word.end()-diff, word.end());
+
+            if (judge(word))
                 cout << "Yes\n";
             else
                 cout << "No\n";
-        }
+            }
         else
             cout << "No\n";
     }
